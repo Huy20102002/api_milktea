@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('idCate');
             $table->integer("status");
             $table->text('image');
+            $table->integer('view');
             $table->timestamps();
         });
     }

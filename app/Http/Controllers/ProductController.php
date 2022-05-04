@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Product as RequestsProduct;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -13,7 +16,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+
+        $all = Product::all();
+        return response()->json([
+            'data'=>$all
+        ]);
     }
 
     /**
@@ -32,9 +39,17 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RequestsProduct $request)
     {
-        //
+        $model = new Product();
+        $model->name= $request->name;
+        $model->price= $request->price;
+        $model->description = $request->description;
+        $model->idCate = $request->idCate;
+        $model->status = $request->status;
+        $model->image=$request->image;
+        $model->save();
+        return response()->json(200);
     }
 
     /**
@@ -45,7 +60,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::find($id);
+        return response()->json($product);
     }
 
     /**
