@@ -42,6 +42,12 @@ class ToppingController extends Controller
             'name'=>'required|string',
             'price'=>'required|integer'
         ]);
+        $model = new Topping();
+        $model->name = $request->name;
+        $model->price = $request->price;
+        $model->save();
+        return response()->json(200);
+        
     }
 
     /**
@@ -52,7 +58,9 @@ class ToppingController extends Controller
      */
     public function show($id)
     {
-        //
+        
+        $data = Topping::find($id);
+        return response()->json($data);
     }
 
     /**
@@ -75,7 +83,15 @@ class ToppingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'=>'required|string',
+            'price'=>'required|integer'
+        ]);
+        $model = Topping::find($id);
+        $model->name = $request->name;
+        $model->price =$request->price;
+        $model->save();
+        return response()->json(200);
     }
 
     /**
@@ -86,6 +102,8 @@ class ToppingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (!($topping = Topping::find($id))) return abort(404);
+        $topping->delete();
+        return redirect()->back();
     }
 }

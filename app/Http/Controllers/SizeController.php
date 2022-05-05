@@ -46,6 +46,7 @@ class SizeController extends Controller
         $model->name = $request->name;
         $model->price = $request->price;
         $model->save();
+        return response()->json(200);
     }
 
     /**
