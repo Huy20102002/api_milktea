@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Size;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
 
-class UserController extends Controller
+class SizeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +14,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $all = Size::all();
+        return response()->json([
+            'data'=>$all
+        ],200);
     }
 
     /**
@@ -38,7 +38,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required|string',
+            'price'=>'required|numeric'
+        ]);
+        $model = new Size();
+        $model->name = $request->name;
+        $model->price = $request->price;
+        $model->save();
     }
 
     /**
@@ -49,7 +56,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $show= Size::find($id);
+        return response()->json($show);
     }
 
     /**
@@ -60,7 +68,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+    
     }
 
     /**
@@ -72,7 +80,14 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'=>'required|string',
+            'price'=>'required|numeric'
+        ]);
+        $model = Size::find($id);
+        $model->name = $request->name;
+        $model->price = $request->price;
+        $model->save();
     }
 
     /**
@@ -83,39 +98,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
-    public function register(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|string|unique:users',
-            'password' => 'required|string|min:6'
-        ]);
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->save();
-        return response()->json(['message' => 'Account has been registered'], 200);
-    }
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email'=>'required|string',
-            'password'=>'required|string'
-        ]);
-        $credentials = request(['email','password']);
-        if(Auth::attempt($credentials)){
-            // Authentication passed...
-            return response()->json(['message'=>'Account has been login'],401);
-        }
-     
-        return response()->json([
-            'data'=>[
-                'user'=>Auth::user(),
-                // 'expires_at'=>Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
-            ]
-            ]);
+        if (!($size = Size::find($id))) return abort(404);
+        $size->delete();
+        return redirect()->back();
     }
 }
