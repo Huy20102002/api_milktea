@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SizeController;
+use App\Http\Controllers\SlideController;
 use App\Http\Controllers\ToppingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -24,9 +25,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::apiResource('category',CategoryController::class);
 Route::apiResource('product',ProductController::class);
+Route::get('product/getname/{link_sp}',[ProductController::class,'getByname']);
 Route::group(['prefix'=>'auth'],function(){
     Route::post('register',[UserController::class,'register']);
     Route::post('login',[UserController::class,'login']);
 });
 Route::apiResource('size',SizeController::class);
 Route::apiResource('topping',ToppingController::class);
+Route::apiResource('slide',SlideController::class);

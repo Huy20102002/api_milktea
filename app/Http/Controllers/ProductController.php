@@ -36,6 +36,7 @@ class ProductController extends Controller
         $model->idCate = $request->idCate;
         $model->status = $request->status;
         $model->image = $request->image;
+        $model->link_sp = $request->link_sp;
         $model->save();
         return response()->json(200);
     }
@@ -46,8 +47,10 @@ class ProductController extends Controller
         $product = Product::find($id);
         return response()->json($product);
     }
-
-
+    public function getByname($link_sp){
+        $product = Product::where('link_sp',"$link_sp")->get();
+        return response()->json($product);
+    }
     public function edit($id)
     {
 
@@ -65,6 +68,7 @@ class ProductController extends Controller
         $model->status = $request->status;
         $model->image = $request->image;
         $model->view = 0;
+        $model->link_sp = $request->link_sp;
         $model->save();
     }
 

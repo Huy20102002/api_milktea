@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer("status");
             $table->text('image');
             $table->integer('view')->default(0);
+            $table->text('link_sp');
             $table->timestamps();
         });
     }
