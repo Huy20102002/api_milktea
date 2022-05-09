@@ -14,7 +14,7 @@ class SizeController extends Controller
      */
     public function index()
     {
-        $all = Size::all();
+        $all = Size::orderBy('price', 'asc')->get();
         return response()->json([
             'data'=>$all
         ],200);

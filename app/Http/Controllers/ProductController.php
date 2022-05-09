@@ -48,7 +48,8 @@ class ProductController extends Controller
         return response()->json($product);
     }
     public function getByname($link_sp){
-        $product = Product::where('link_sp',"$link_sp")->get();
+        $product = Product::where('link_sp',"$link_sp")->first();
+        //  print_r($product);
         return response()->json($product);
     }
     public function edit($id)

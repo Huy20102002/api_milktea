@@ -14,7 +14,7 @@ class ToppingController extends Controller
      */
     public function index()
     {
-        $all = Topping::all();
+        $all = Topping::orderBy('price', 'asc')->get();
         return response()->json([
             'data'=>$all
         ]);

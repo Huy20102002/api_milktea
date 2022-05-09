@@ -14,7 +14,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->integer('id_product');
+            $table->string('name');
+            $table->decimal('price');
+            $table->text('image');
+            $table->integer('id_size');
+            $table->string('size_name');
+            $table->integer('id_topping');
+            $table->integer('topping_name');
+            $table->integer('quantity');
+            $table->integer('sumprice');
+            $table->integer('id_user');
             $table->timestamps();
         });
     }
