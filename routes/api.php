@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SizeController;
@@ -33,3 +34,4 @@ Route::group(['prefix'=>'auth'],function(){
 Route::apiResource('size',SizeController::class);
 Route::apiResource('topping',ToppingController::class);
 Route::apiResource('slide',SlideController::class);
+Route::apiResource('carts',CartController::class);

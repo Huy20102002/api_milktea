@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cart;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
-class CartController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,12 +14,14 @@ class CartController extends Controller
      */
     public function index()
     {
-        $all =Cart::all();
+        $all = Order::all();
         return response()->json([
             'data'=>$all
         ]);
     }
-
+    public function ShowClient(){
+        
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -38,19 +40,7 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        $model = new Cart();
-        $model->id_product = $request->id_product;
-        $model->name = $request->name;
-        $model->price = $request->price;
-        $model->image = $request->image;
-        $model->id_size = $request->id_size;
-        $model->size_name = $request->size_name;
-        $model->id_topping = $request->id_topping;
-        $model->topping_name=$request->topping_name;
-        $model->quantity = $request->quantity;
-        $model->sumprice = $request->sumprice;
-        $model->id_user = $request->id_user;
-        $model->save();
+        //
     }
 
     /**
